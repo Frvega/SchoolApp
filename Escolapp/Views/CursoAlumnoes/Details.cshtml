@@ -1,0 +1,42 @@
+﻿@model Escolapp.Models.CursoAlumno
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>CursoAlumno</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.status_cursoAlumno)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.status_cursoAlumno)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Alumno.nombre_alumno)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Alumno.nombre_alumno)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Curso.status_curso)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Curso.status_curso)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.id_cursoalumno }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

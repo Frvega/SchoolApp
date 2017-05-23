@@ -1,0 +1,45 @@
+﻿@model IEnumerable<Escolapp.Models.CursoAlumno>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.status_cursoAlumno)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Alumno.nombre_alumno)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Curso.status_curso)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.status_cursoAlumno)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Alumno.nombre_alumno)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Curso.status_curso)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.id_cursoalumno }) |
+            @Html.ActionLink("Details", "Details", new { id=item.id_cursoalumno }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.id_cursoalumno })
+        </td>
+    </tr>
+}
+
+</table>

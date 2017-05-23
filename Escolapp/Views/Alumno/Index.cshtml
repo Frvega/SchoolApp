@@ -1,0 +1,94 @@
+﻿@model IEnumerable<Escolapp.Models.Alumno>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Concentrado General de Alumnos</h2>
+
+
+<p>
+    @Html.ActionLink("Registrar", "Registrar")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.id_alumno)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.id_semestre)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.id_especialidad)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.nombre_alumno)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.apellido_alumno)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.direccion_alumno)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.edad_alumno)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.sexo_alumno)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.telefono_alumno)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.fecha_registro_alumno)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.status_alumno)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.id_alumno)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.id_semestre)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.id_especialidad)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.nombre_alumno)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.apellido_alumno)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.direccion_alumno)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.edad_alumno)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.sexo_alumno)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.telefono_alumno)
+        </td>
+        <td>
+            @item.fecha_registro_alumno.ToShortDateString()
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.status_alumno)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
+            @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
+            @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
+        </td>
+    </tr>
+}
+
+</table>

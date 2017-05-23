@@ -1,0 +1,52 @@
+﻿@model Escolapp.Models.Usuario
+
+@{
+    ViewBag.Title = "Index";
+    Layout = null;
+}
+
+
+<link href="~/Content/Login.css" rel="stylesheet" />
+
+@using (Html.BeginForm("Login", "Login", FormMethod.Post))
+{
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true)
+
+
+
+    <div class="login_form">
+
+        <div class="login_face">
+            <img src="~/Images/logo_azul.png" />
+        </div>
+
+        <div class="form">
+            @Html.EditorFor(Model => Model.correo_usuario, new { htmlAttributes = new { @class = "txt_login", @placeholder = "Correo de Usuario" } })
+
+            @Html.ValidationMessageFor(Model => Model.correo_usuario, "", new { @class = "text-danger" })
+
+            @Html.PasswordFor(Model => Model.password_usuario, htmlAttributes: new { @class = "txt_login", placeholder = "Contraseña" })
+
+            @Html.ValidationMessageFor(Model => Model.password_usuario, "", new { @class = "text-danger" })
+
+            <input type="submit" value="Iniciar Sesión" class="btn_login" />
+        </div>
+    </div>
+}
+
+@{
+    if (!string.IsNullOrEmpty(ViewBag.Message))
+    {
+        <script type="text/javascript">
+                        alert('Inicio de sesión inválido, verifique sus credenciales');
+                        document.location = "index";
+        </script>
+    }
+}
+
+<script src="~/Scripts/jquery.validate.js"></script>
+<script src="~/Scripts/jquery.validate.min.js"></script>
+<script src="~/Scripts/jquery.validate.unobtrusive.js"></script>
+<script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
+

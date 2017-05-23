@@ -1,0 +1,42 @@
+﻿@model Escolapp.Models.Especialidad
+
+@{
+    ViewBag.Title = "Detalles";
+}
+
+<h2>Detalles</h2>
+
+<div>
+    <h4>Especialidades</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.id_especialidad)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.id_especialidad)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.nombre_especialidad)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.nombre_especialidad)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.status_especialidad)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.status_especialidad)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Editar", "Editar", new { Model.id_especialidad }) |
+    @Html.ActionLink("Regresar", "Index")
+</p>

@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="b69558c0e2b04e39b6231e621f5da4be" Name="Diagram1">
+        <EntityTypeShape EntityType="BdEscuelaMvcModel.Alumno" Width="1.5" PointX="3" PointY="4.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="BdEscuelaMvcModel.Curso" Width="1.5" PointX="6" PointY="5" IsExpanded="true" />
+        <EntityTypeShape EntityType="BdEscuelaMvcModel.CursoAlumno" Width="1.5" PointX="8.25" PointY="5.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="BdEscuelaMvcModel.Especialidad" Width="1.5" PointX="0.75" PointY="5.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="BdEscuelaMvcModel.Maestro" Width="1.5" PointX="3.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="BdEscuelaMvcModel.Materia" Width="1.5" PointX="3.75" PointY="9.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="BdEscuelaMvcModel.Semestre" Width="1.5" PointX="0.75" PointY="2.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="BdEscuelaMvcModel.Usuario" Width="1.5" PointX="5.75" PointY="2.375" IsExpanded="true" />
+        <AssociationConnector Association="BdEscuelaMvcModel.fk_Alumno_Especialidad" ManuallyRouted="false" />
+        <AssociationConnector Association="BdEscuelaMvcModel.fk_Alumno_Semestre" ManuallyRouted="false" />
+        <AssociationConnector Association="BdEscuelaMvcModel.fk_CursoAlumno_Alumno" ManuallyRouted="false" />
+        <AssociationConnector Association="BdEscuelaMvcModel.fk_Curso_Especialidad" ManuallyRouted="false" />
+        <AssociationConnector Association="BdEscuelaMvcModel.fk_Curso_Maestro" ManuallyRouted="false" />
+        <AssociationConnector Association="BdEscuelaMvcModel.fk_Curso_Materia" ManuallyRouted="false" />
+        <AssociationConnector Association="BdEscuelaMvcModel.fk_Curso_Semestre" ManuallyRouted="false" />
+        <AssociationConnector Association="BdEscuelaMvcModel.fk_CursoAlumno_Curso" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

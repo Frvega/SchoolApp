@@ -1,0 +1,95 @@
+﻿@model IEnumerable<Escolapp.Models.Maestro>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Registrar Nuevo Maestro", "Registrar")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.id_maestro)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.nombre_maestro)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.apellido_maestro)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.direccion_maestro)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.edad_maestro)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.sexo_maestro)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.telefono_maestro)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.fecha_registro_maestro)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.status_maestro)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.id_maestro)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.nombre_maestro)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.apellido_maestro)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.direccion_maestro)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.edad_maestro)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.sexo_maestro)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.telefono_maestro)
+        </td>
+        <td>
+            @item.fecha_registro_maestro.ToShortDateString()
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.status_maestro)
+        </td>
+        <td>
+            @Html.ActionLink("Editar", "Editar", new { id = item.id_maestro }) |
+            @Html.ActionLink("Detalles", "Detalles", new { id = item.id_maestro }) |
+            @Html.ActionLink("Inhabilitar", "Baja", new { id = item.id_maestro }, new { @class = "Confirmacion" })
+        </td>
+    </tr>
+}
+
+</table>
+
+@Html.ActionLink("Mostrar Contenidos Inhabilitados", "Inhabilitado", "Maestro")
+
+
+@section scripts
+{
+    <script>
+        $(".Confirmacion").click(function (event) {
+            if (!confirm('¿Realemente desea Inhabilitar esta opción?')) {
+                event.preventDefault();
+            }
+        });
+    </script>
+}

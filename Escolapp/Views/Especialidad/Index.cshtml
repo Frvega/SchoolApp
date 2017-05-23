@@ -1,0 +1,63 @@
+﻿@model IEnumerable<Escolapp.Models.Especialidad>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Carreras de la Universidad</h2>
+
+<p>
+    @Html.ActionLink("Registrar Nueva Especialidad", "Registrar")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.id_especialidad)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.nombre_especialidad)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.status_especialidad)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.id_especialidad)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.nombre_especialidad)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.status_especialidad)
+        </td>
+        <td>
+            @Html.ActionLink("Editar", "Editar", new { id = item.id_especialidad }) |
+            @Html.ActionLink("Detalles", "Detalles", new { id = item.id_especialidad }) |
+            @Html.ActionLink("Inhabilitar", "Baja", new { id = item.id_especialidad }, new { @class = "Confirmacion" })
+        </td>
+    </tr>
+}
+
+</table>
+
+
+
+@Html.ActionLink("Mostrar Contenidos Inhabilitados", "Inhabilitado", "Especialidad")
+
+
+@section scripts
+{
+    <script>
+        $(".Confirmacion").click(function (event) {
+            if (!confirm('¿Realemente desea Inhabilitar esta opción?')) {
+                event.preventDefault();
+            }
+        });
+    </script>
+}
+
+

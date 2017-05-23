@@ -1,0 +1,1059 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="BdEscuelaMvcModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Alumno">
+          <Key>
+            <PropertyRef Name="id_alumno" />
+          </Key>
+          <Property Name="id_alumno" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="id_semestre" Type="int" Nullable="false" />
+          <Property Name="id_especialidad" Type="int" Nullable="false" />
+          <Property Name="nombre_alumno" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="apellido_alumno" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="direccion_alumno" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="edad_alumno" Type="int" Nullable="false" />
+          <Property Name="sexo_alumno" Type="varchar" MaxLength="10" Nullable="false" />
+          <Property Name="telefono_alumno" Type="varchar" MaxLength="10" Nullable="false" />
+          <Property Name="fecha_registro_alumno" Type="datetime" Nullable="false" />
+          <Property Name="status_alumno" Type="varchar" MaxLength="10" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Curso">
+          <Key>
+            <PropertyRef Name="id_curso" />
+          </Key>
+          <Property Name="id_curso" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="id_maestro" Type="int" Nullable="false" />
+          <Property Name="id_materia" Type="int" Nullable="false" />
+          <Property Name="id_semestre" Type="int" Nullable="false" />
+          <Property Name="id_especialidad" Type="int" Nullable="false" />
+          <Property Name="status_curso" Type="varchar" MaxLength="10" Nullable="false" />
+        </EntityType>
+        <EntityType Name="CursoAlumno">
+          <Key>
+            <PropertyRef Name="id_cursoalumno" />
+          </Key>
+          <Property Name="id_cursoalumno" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="id_curso" Type="int" Nullable="false" />
+          <Property Name="id_alumno" Type="int" Nullable="false" />
+          <Property Name="status_cursoAlumno" Type="varchar" MaxLength="10" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Especialidad">
+          <Key>
+            <PropertyRef Name="id_especialidad" />
+          </Key>
+          <Property Name="id_especialidad" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="nombre_especialidad" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="status_especialidad" Type="varchar" MaxLength="10" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Maestro">
+          <Key>
+            <PropertyRef Name="id_maestro" />
+          </Key>
+          <Property Name="id_maestro" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="nombre_maestro" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="apellido_maestro" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="direccion_maestro" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="edad_maestro" Type="int" Nullable="false" />
+          <Property Name="sexo_maestro" Type="varchar" MaxLength="10" Nullable="false" />
+          <Property Name="telefono_maestro" Type="varchar" MaxLength="10" Nullable="false" />
+          <Property Name="fecha_registro_maestro" Type="datetime" Nullable="false" />
+          <Property Name="status_maestro" Type="varchar" MaxLength="20" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Materia">
+          <Key>
+            <PropertyRef Name="id_materia" />
+          </Key>
+          <Property Name="id_materia" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="nombre_materia" Type="varchar" MaxLength="30" Nullable="false" />
+          <Property Name="creditos" Type="int" Nullable="false" />
+          <Property Name="status_materia" Type="varchar" MaxLength="10" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Semestre">
+          <Key>
+            <PropertyRef Name="id_semestre" />
+          </Key>
+          <Property Name="id_semestre" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="nombre_semestre" Type="varchar" MaxLength="30" Nullable="false" />
+          <Property Name="status_semestre" Type="varchar" MaxLength="10" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Usuario">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="correo_usuario" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="password_usuario" Type="varchar" MaxLength="20" Nullable="false" />
+        </EntityType>
+        <Association Name="fk_Alumno_Especialidad">
+          <End Role="Especialidad" Type="Self.Especialidad" Multiplicity="1" />
+          <End Role="Alumno" Type="Self.Alumno" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Especialidad">
+              <PropertyRef Name="id_especialidad" />
+            </Principal>
+            <Dependent Role="Alumno">
+              <PropertyRef Name="id_especialidad" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_Alumno_Semestre">
+          <End Role="Semestre" Type="Self.Semestre" Multiplicity="1" />
+          <End Role="Alumno" Type="Self.Alumno" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Semestre">
+              <PropertyRef Name="id_semestre" />
+            </Principal>
+            <Dependent Role="Alumno">
+              <PropertyRef Name="id_semestre" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_Curso_Especialidad">
+          <End Role="Especialidad" Type="Self.Especialidad" Multiplicity="1" />
+          <End Role="Curso" Type="Self.Curso" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Especialidad">
+              <PropertyRef Name="id_especialidad" />
+            </Principal>
+            <Dependent Role="Curso">
+              <PropertyRef Name="id_especialidad" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_Curso_Maestro">
+          <End Role="Maestro" Type="Self.Maestro" Multiplicity="1" />
+          <End Role="Curso" Type="Self.Curso" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Maestro">
+              <PropertyRef Name="id_maestro" />
+            </Principal>
+            <Dependent Role="Curso">
+              <PropertyRef Name="id_maestro" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_Curso_Materia">
+          <End Role="Materia" Type="Self.Materia" Multiplicity="1" />
+          <End Role="Curso" Type="Self.Curso" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Materia">
+              <PropertyRef Name="id_materia" />
+            </Principal>
+            <Dependent Role="Curso">
+              <PropertyRef Name="id_materia" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_Curso_Semestre">
+          <End Role="Semestre" Type="Self.Semestre" Multiplicity="1" />
+          <End Role="Curso" Type="Self.Curso" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Semestre">
+              <PropertyRef Name="id_semestre" />
+            </Principal>
+            <Dependent Role="Curso">
+              <PropertyRef Name="id_semestre" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_CursoAlumno_Alumno">
+          <End Role="Alumno" Type="Self.Alumno" Multiplicity="1" />
+          <End Role="CursoAlumno" Type="Self.CursoAlumno" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Alumno">
+              <PropertyRef Name="id_alumno" />
+            </Principal>
+            <Dependent Role="CursoAlumno">
+              <PropertyRef Name="id_alumno" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_CursoAlumno_Curso">
+          <End Role="Curso" Type="Self.Curso" Multiplicity="1" />
+          <End Role="CursoAlumno" Type="Self.CursoAlumno" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Curso">
+              <PropertyRef Name="id_curso" />
+            </Principal>
+            <Dependent Role="CursoAlumno">
+              <PropertyRef Name="id_curso" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Function Name="sp_AltaAlumno" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="id_alumno" Type="int" Mode="In" />
+        </Function>
+        <Function Name="sp_AltaCurso" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="id_curso" Type="int" Mode="In" />
+        </Function>
+        <Function Name="sp_AltaCursoAlumno" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="id_curso_alumno" Type="int" Mode="In" />
+        </Function>
+        <Function Name="sp_AltaEspecialidad" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="id_especialidad" Type="int" Mode="In" />
+        </Function>
+        <Function Name="sp_AltaMaestro" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="id_maestro" Type="int" Mode="In" />
+        </Function>
+        <Function Name="sp_AltaMateria" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="id_materia" Type="int" Mode="In" />
+        </Function>
+        <Function Name="sp_AltaSemestre" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="id_semestre" Type="int" Mode="In" />
+        </Function>
+        <Function Name="sp_BajaAlumno" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="id_alumno" Type="int" Mode="In" />
+        </Function>
+        <Function Name="sp_BajaCurso" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="id_curso" Type="int" Mode="In" />
+        </Function>
+        <Function Name="sp_BajaCursoAlumno" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="id_curso_alumno" Type="int" Mode="In" />
+        </Function>
+        <Function Name="sp_BajaEspecialidad" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="id_especialidad" Type="int" Mode="In" />
+        </Function>
+        <Function Name="sp_BajaMaestro" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="id_maestro" Type="int" Mode="In" />
+        </Function>
+        <Function Name="sp_BajaMateria" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="id_materia" Type="int" Mode="In" />
+        </Function>
+        <Function Name="sp_BajaSemestre" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="id_semestre" Type="int" Mode="In" />
+        </Function>
+        <Function Name="sp_CrearCurso" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="id_maestro" Type="int" Mode="In" />
+          <Parameter Name="id_materia" Type="int" Mode="In" />
+          <Parameter Name="id_semestre" Type="int" Mode="In" />
+          <Parameter Name="id_especialidad" Type="int" Mode="In" />
+          <Parameter Name="status_curso" Type="varchar" Mode="In" />
+        </Function>
+        <Function Name="sp_CrearCursoAlumno" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="id_curso" Type="int" Mode="In" />
+          <Parameter Name="id_alumno" Type="int" Mode="In" />
+          <Parameter Name="status_cursoAlumno" Type="varchar" Mode="In" />
+        </Function>
+        <Function Name="sp_EditarAlumno" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="id_alumno" Type="int" Mode="In" />
+          <Parameter Name="id_semestre" Type="int" Mode="In" />
+          <Parameter Name="id_especialidad" Type="int" Mode="In" />
+          <Parameter Name="nombre_alumno" Type="varchar" Mode="In" />
+          <Parameter Name="apellido_alumno" Type="varchar" Mode="In" />
+          <Parameter Name="direccion_alumno" Type="varchar" Mode="In" />
+          <Parameter Name="edad_alumno" Type="int" Mode="In" />
+          <Parameter Name="sexo_alumno" Type="varchar" Mode="In" />
+          <Parameter Name="telefono_alumno" Type="varchar" Mode="In" />
+        </Function>
+        <Function Name="sp_EditarCurso" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="id_curso" Type="int" Mode="In" />
+          <Parameter Name="id_maestro" Type="int" Mode="In" />
+          <Parameter Name="id_materia" Type="int" Mode="In" />
+          <Parameter Name="id_semestre" Type="int" Mode="In" />
+          <Parameter Name="id_especialidad" Type="int" Mode="In" />
+          <Parameter Name="status_curso" Type="varchar" Mode="In" />
+        </Function>
+        <Function Name="sp_EditarCursoAlumno" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="id_curso_alumno" Type="int" Mode="In" />
+          <Parameter Name="id_curso" Type="int" Mode="In" />
+          <Parameter Name="id_alumno" Type="int" Mode="In" />
+        </Function>
+        <Function Name="sp_EditarEspecialidad" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="id_Especialidad" Type="int" Mode="In" />
+          <Parameter Name="nombre_Especialidad" Type="varchar" Mode="In" />
+        </Function>
+        <Function Name="sp_EditarMaestro" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="id_maestro" Type="int" Mode="In" />
+          <Parameter Name="nombre_maestro" Type="varchar" Mode="In" />
+          <Parameter Name="apellido_maestro" Type="varchar" Mode="In" />
+          <Parameter Name="direccion_maestro" Type="varchar" Mode="In" />
+          <Parameter Name="edad_maestro" Type="int" Mode="In" />
+          <Parameter Name="sexo_maestro" Type="varchar" Mode="In" />
+          <Parameter Name="telefono_maestro" Type="varchar" Mode="In" />
+        </Function>
+        <Function Name="sp_EditarMateria" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="id_materia" Type="int" Mode="In" />
+          <Parameter Name="nombre_materia" Type="varchar" Mode="In" />
+          <Parameter Name="creditos" Type="int" Mode="In" />
+          <Parameter Name="status_materia" Type="varchar" Mode="In" />
+        </Function>
+        <Function Name="sp_EditarSemestre" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="id_semestre" Type="int" Mode="In" />
+          <Parameter Name="nombre_semestre" Type="varchar" Mode="In" />
+        </Function>
+        <Function Name="sp_InsertarAlumno" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="id_semestre" Type="int" Mode="In" />
+          <Parameter Name="id_especialidad" Type="int" Mode="In" />
+          <Parameter Name="nombre_alumno" Type="varchar" Mode="In" />
+          <Parameter Name="apellido_alumno" Type="varchar" Mode="In" />
+          <Parameter Name="direccion_alumno" Type="varchar" Mode="In" />
+          <Parameter Name="edad_alumno" Type="int" Mode="In" />
+          <Parameter Name="sexo_alumno" Type="varchar" Mode="In" />
+          <Parameter Name="telefono_alumno" Type="varchar" Mode="In" />
+          <Parameter Name="status_alumno" Type="varchar" Mode="In" />
+        </Function>
+        <Function Name="sp_InsertarEspecialidad" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="nombre_Especialidad" Type="varchar" Mode="In" />
+          <Parameter Name="estado_Especialidad" Type="varchar" Mode="In" />
+        </Function>
+        <Function Name="sp_InsertarMaestro" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="nombre_maestro" Type="varchar" Mode="In" />
+          <Parameter Name="apellido_maestro" Type="varchar" Mode="In" />
+          <Parameter Name="direccion_maestro" Type="varchar" Mode="In" />
+          <Parameter Name="edad_maestro" Type="int" Mode="In" />
+          <Parameter Name="sexo_maestro" Type="varchar" Mode="In" />
+          <Parameter Name="telefono_maestro" Type="varchar" Mode="In" />
+          <Parameter Name="status_maestro" Type="varchar" Mode="In" />
+        </Function>
+        <Function Name="sp_InsertarMateria" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="nombre_materia" Type="varchar" Mode="In" />
+          <Parameter Name="creditos" Type="int" Mode="In" />
+          <Parameter Name="status_materia" Type="varchar" Mode="In" />
+        </Function>
+        <Function Name="sp_ListarAlumno" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="sp_ListarCursosADetalle" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="sp_ListarCursosAlumno" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="sp_ListarEspecialidades" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="sp_ListarMaestro" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="sp_ListarMateria" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="sp_ListarSemestres" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="sp_Login" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="correo_usuario" Type="varchar" Mode="In" />
+          <Parameter Name="password_usuario" Type="varchar" Mode="In" />
+        </Function>
+        <Function Name="sp_RegistrarSemestre" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="nombre_semestre" Type="varchar" Mode="In" />
+          <Parameter Name="status_semestre" Type="varchar" Mode="In" />
+        </Function>
+        <EntityContainer Name="BdEscuelaMvcModelStoreContainer">
+          <EntitySet Name="Alumno" EntityType="Self.Alumno" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Curso" EntityType="Self.Curso" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="CursoAlumno" EntityType="Self.CursoAlumno" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Especialidad" EntityType="Self.Especialidad" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Maestro" EntityType="Self.Maestro" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Materia" EntityType="Self.Materia" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Semestre" EntityType="Self.Semestre" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Usuario" EntityType="Self.Usuario" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="fk_Alumno_Especialidad" Association="Self.fk_Alumno_Especialidad">
+            <End Role="Especialidad" EntitySet="Especialidad" />
+            <End Role="Alumno" EntitySet="Alumno" />
+          </AssociationSet>
+          <AssociationSet Name="fk_Alumno_Semestre" Association="Self.fk_Alumno_Semestre">
+            <End Role="Semestre" EntitySet="Semestre" />
+            <End Role="Alumno" EntitySet="Alumno" />
+          </AssociationSet>
+          <AssociationSet Name="fk_Curso_Especialidad" Association="Self.fk_Curso_Especialidad">
+            <End Role="Especialidad" EntitySet="Especialidad" />
+            <End Role="Curso" EntitySet="Curso" />
+          </AssociationSet>
+          <AssociationSet Name="fk_Curso_Maestro" Association="Self.fk_Curso_Maestro">
+            <End Role="Maestro" EntitySet="Maestro" />
+            <End Role="Curso" EntitySet="Curso" />
+          </AssociationSet>
+          <AssociationSet Name="fk_Curso_Materia" Association="Self.fk_Curso_Materia">
+            <End Role="Materia" EntitySet="Materia" />
+            <End Role="Curso" EntitySet="Curso" />
+          </AssociationSet>
+          <AssociationSet Name="fk_Curso_Semestre" Association="Self.fk_Curso_Semestre">
+            <End Role="Semestre" EntitySet="Semestre" />
+            <End Role="Curso" EntitySet="Curso" />
+          </AssociationSet>
+          <AssociationSet Name="fk_CursoAlumno_Alumno" Association="Self.fk_CursoAlumno_Alumno">
+            <End Role="Alumno" EntitySet="Alumno" />
+            <End Role="CursoAlumno" EntitySet="CursoAlumno" />
+          </AssociationSet>
+          <AssociationSet Name="fk_CursoAlumno_Curso" Association="Self.fk_CursoAlumno_Curso">
+            <End Role="Curso" EntitySet="Curso" />
+            <End Role="CursoAlumno" EntitySet="CursoAlumno" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="BdEscuelaMvcModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Alumno">
+          <Key>
+            <PropertyRef Name="id_alumno" />
+          </Key>
+          <Property Name="id_alumno" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="id_semestre" Type="Int32" Nullable="false" />
+          <Property Name="id_especialidad" Type="Int32" Nullable="false" />
+          <Property Name="nombre_alumno" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="apellido_alumno" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="direccion_alumno" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="edad_alumno" Type="Int32" Nullable="false" />
+          <Property Name="sexo_alumno" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="telefono_alumno" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="fecha_registro_alumno" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="status_alumno" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="Especialidad" Relationship="Self.fk_Alumno_Especialidad" FromRole="Alumno" ToRole="Especialidad" />
+          <NavigationProperty Name="Semestre" Relationship="Self.fk_Alumno_Semestre" FromRole="Alumno" ToRole="Semestre" />
+          <NavigationProperty Name="CursoAlumno" Relationship="Self.fk_CursoAlumno_Alumno" FromRole="Alumno" ToRole="CursoAlumno" />
+        </EntityType>
+        <EntityType Name="Curso">
+          <Key>
+            <PropertyRef Name="id_curso" />
+          </Key>
+          <Property Name="id_curso" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="id_maestro" Type="Int32" Nullable="false" />
+          <Property Name="id_materia" Type="Int32" Nullable="false" />
+          <Property Name="id_semestre" Type="Int32" Nullable="false" />
+          <Property Name="id_especialidad" Type="Int32" Nullable="false" />
+          <Property Name="status_curso" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="Especialidad" Relationship="Self.fk_Curso_Especialidad" FromRole="Curso" ToRole="Especialidad" />
+          <NavigationProperty Name="Maestro" Relationship="Self.fk_Curso_Maestro" FromRole="Curso" ToRole="Maestro" />
+          <NavigationProperty Name="Materia" Relationship="Self.fk_Curso_Materia" FromRole="Curso" ToRole="Materia" />
+          <NavigationProperty Name="Semestre" Relationship="Self.fk_Curso_Semestre" FromRole="Curso" ToRole="Semestre" />
+          <NavigationProperty Name="CursoAlumno" Relationship="Self.fk_CursoAlumno_Curso" FromRole="Curso" ToRole="CursoAlumno" />
+        </EntityType>
+        <EntityType Name="CursoAlumno">
+          <Key>
+            <PropertyRef Name="id_cursoalumno" />
+          </Key>
+          <Property Name="id_cursoalumno" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="id_curso" Type="Int32" Nullable="false" />
+          <Property Name="id_alumno" Type="Int32" Nullable="false" />
+          <Property Name="status_cursoAlumno" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="Alumno" Relationship="Self.fk_CursoAlumno_Alumno" FromRole="CursoAlumno" ToRole="Alumno" />
+          <NavigationProperty Name="Curso" Relationship="Self.fk_CursoAlumno_Curso" FromRole="CursoAlumno" ToRole="Curso" />
+        </EntityType>
+        <EntityType Name="Especialidad">
+          <Key>
+            <PropertyRef Name="id_especialidad" />
+          </Key>
+          <Property Name="id_especialidad" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="nombre_especialidad" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="status_especialidad" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="Alumno" Relationship="Self.fk_Alumno_Especialidad" FromRole="Especialidad" ToRole="Alumno" />
+          <NavigationProperty Name="Curso" Relationship="Self.fk_Curso_Especialidad" FromRole="Especialidad" ToRole="Curso" />
+        </EntityType>
+        <EntityType Name="Maestro">
+          <Key>
+            <PropertyRef Name="id_maestro" />
+          </Key>
+          <Property Name="id_maestro" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="nombre_maestro" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="apellido_maestro" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="direccion_maestro" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="edad_maestro" Type="Int32" Nullable="false" />
+          <Property Name="sexo_maestro" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="telefono_maestro" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="fecha_registro_maestro" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="status_maestro" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="Curso" Relationship="Self.fk_Curso_Maestro" FromRole="Maestro" ToRole="Curso" />
+        </EntityType>
+        <EntityType Name="Materia">
+          <Key>
+            <PropertyRef Name="id_materia" />
+          </Key>
+          <Property Name="id_materia" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="nombre_materia" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="creditos" Type="Int32" Nullable="false" />
+          <Property Name="status_materia" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="Curso" Relationship="Self.fk_Curso_Materia" FromRole="Materia" ToRole="Curso" />
+        </EntityType>
+        <EntityType Name="Semestre">
+          <Key>
+            <PropertyRef Name="id_semestre" />
+          </Key>
+          <Property Name="id_semestre" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="nombre_semestre" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="status_semestre" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="Alumno" Relationship="Self.fk_Alumno_Semestre" FromRole="Semestre" ToRole="Alumno" />
+          <NavigationProperty Name="Curso" Relationship="Self.fk_Curso_Semestre" FromRole="Semestre" ToRole="Curso" />
+        </EntityType>
+        <EntityType Name="Usuario">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="correo_usuario" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="password_usuario" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+        </EntityType>
+        <Association Name="fk_Alumno_Especialidad">
+          <End Role="Especialidad" Type="Self.Especialidad" Multiplicity="1" />
+          <End Role="Alumno" Type="Self.Alumno" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Especialidad">
+              <PropertyRef Name="id_especialidad" />
+            </Principal>
+            <Dependent Role="Alumno">
+              <PropertyRef Name="id_especialidad" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_Alumno_Semestre">
+          <End Role="Semestre" Type="Self.Semestre" Multiplicity="1" />
+          <End Role="Alumno" Type="Self.Alumno" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Semestre">
+              <PropertyRef Name="id_semestre" />
+            </Principal>
+            <Dependent Role="Alumno">
+              <PropertyRef Name="id_semestre" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_CursoAlumno_Alumno">
+          <End Role="Alumno" Type="Self.Alumno" Multiplicity="1" />
+          <End Role="CursoAlumno" Type="Self.CursoAlumno" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Alumno">
+              <PropertyRef Name="id_alumno" />
+            </Principal>
+            <Dependent Role="CursoAlumno">
+              <PropertyRef Name="id_alumno" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_Curso_Especialidad">
+          <End Role="Especialidad" Type="Self.Especialidad" Multiplicity="1" />
+          <End Role="Curso" Type="Self.Curso" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Especialidad">
+              <PropertyRef Name="id_especialidad" />
+            </Principal>
+            <Dependent Role="Curso">
+              <PropertyRef Name="id_especialidad" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_Curso_Maestro">
+          <End Role="Maestro" Type="Self.Maestro" Multiplicity="1" />
+          <End Role="Curso" Type="Self.Curso" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Maestro">
+              <PropertyRef Name="id_maestro" />
+            </Principal>
+            <Dependent Role="Curso">
+              <PropertyRef Name="id_maestro" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_Curso_Materia">
+          <End Role="Materia" Type="Self.Materia" Multiplicity="1" />
+          <End Role="Curso" Type="Self.Curso" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Materia">
+              <PropertyRef Name="id_materia" />
+            </Principal>
+            <Dependent Role="Curso">
+              <PropertyRef Name="id_materia" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_Curso_Semestre">
+          <End Role="Semestre" Type="Self.Semestre" Multiplicity="1" />
+          <End Role="Curso" Type="Self.Curso" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Semestre">
+              <PropertyRef Name="id_semestre" />
+            </Principal>
+            <Dependent Role="Curso">
+              <PropertyRef Name="id_semestre" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_CursoAlumno_Curso">
+          <End Role="Curso" Type="Self.Curso" Multiplicity="1" />
+          <End Role="CursoAlumno" Type="Self.CursoAlumno" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Curso">
+              <PropertyRef Name="id_curso" />
+            </Principal>
+            <Dependent Role="CursoAlumno">
+              <PropertyRef Name="id_curso" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="EscuelaBd" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Alumno" EntityType="Self.Alumno" />
+          <EntitySet Name="Curso" EntityType="Self.Curso" />
+          <EntitySet Name="CursoAlumno" EntityType="Self.CursoAlumno" />
+          <EntitySet Name="Especialidad" EntityType="Self.Especialidad" />
+          <EntitySet Name="Maestro" EntityType="Self.Maestro" />
+          <EntitySet Name="Materia" EntityType="Self.Materia" />
+          <EntitySet Name="Semestre" EntityType="Self.Semestre" />
+          <EntitySet Name="Usuario" EntityType="Self.Usuario" />
+          <AssociationSet Name="fk_Alumno_Especialidad" Association="Self.fk_Alumno_Especialidad">
+            <End Role="Especialidad" EntitySet="Especialidad" />
+            <End Role="Alumno" EntitySet="Alumno" />
+          </AssociationSet>
+          <AssociationSet Name="fk_Alumno_Semestre" Association="Self.fk_Alumno_Semestre">
+            <End Role="Semestre" EntitySet="Semestre" />
+            <End Role="Alumno" EntitySet="Alumno" />
+          </AssociationSet>
+          <AssociationSet Name="fk_CursoAlumno_Alumno" Association="Self.fk_CursoAlumno_Alumno">
+            <End Role="Alumno" EntitySet="Alumno" />
+            <End Role="CursoAlumno" EntitySet="CursoAlumno" />
+          </AssociationSet>
+          <AssociationSet Name="fk_Curso_Especialidad" Association="Self.fk_Curso_Especialidad">
+            <End Role="Especialidad" EntitySet="Especialidad" />
+            <End Role="Curso" EntitySet="Curso" />
+          </AssociationSet>
+          <AssociationSet Name="fk_Curso_Maestro" Association="Self.fk_Curso_Maestro">
+            <End Role="Maestro" EntitySet="Maestro" />
+            <End Role="Curso" EntitySet="Curso" />
+          </AssociationSet>
+          <AssociationSet Name="fk_Curso_Materia" Association="Self.fk_Curso_Materia">
+            <End Role="Materia" EntitySet="Materia" />
+            <End Role="Curso" EntitySet="Curso" />
+          </AssociationSet>
+          <AssociationSet Name="fk_Curso_Semestre" Association="Self.fk_Curso_Semestre">
+            <End Role="Semestre" EntitySet="Semestre" />
+            <End Role="Curso" EntitySet="Curso" />
+          </AssociationSet>
+          <AssociationSet Name="fk_CursoAlumno_Curso" Association="Self.fk_CursoAlumno_Curso">
+            <End Role="Curso" EntitySet="Curso" />
+            <End Role="CursoAlumno" EntitySet="CursoAlumno" />
+          </AssociationSet>
+          <FunctionImport Name="sp_AltaAlumno">
+            <Parameter Name="id_alumno" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="sp_AltaCurso">
+            <Parameter Name="id_curso" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="sp_AltaCursoAlumno">
+            <Parameter Name="id_curso_alumno" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="sp_AltaEspecialidad">
+            <Parameter Name="id_especialidad" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="sp_AltaMaestro">
+            <Parameter Name="id_maestro" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="sp_AltaMateria">
+            <Parameter Name="id_materia" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="sp_AltaSemestre">
+            <Parameter Name="id_semestre" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="sp_BajaAlumno">
+            <Parameter Name="id_alumno" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="sp_BajaCurso">
+            <Parameter Name="id_curso" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="sp_BajaCursoAlumno">
+            <Parameter Name="id_curso_alumno" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="sp_BajaEspecialidad">
+            <Parameter Name="id_especialidad" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="sp_BajaMaestro">
+            <Parameter Name="id_maestro" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="sp_BajaMateria">
+            <Parameter Name="id_materia" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="sp_BajaSemestre">
+            <Parameter Name="id_semestre" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="sp_CrearCurso">
+            <Parameter Name="id_maestro" Mode="In" Type="Int32" />
+            <Parameter Name="id_materia" Mode="In" Type="Int32" />
+            <Parameter Name="id_semestre" Mode="In" Type="Int32" />
+            <Parameter Name="id_especialidad" Mode="In" Type="Int32" />
+            <Parameter Name="status_curso" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="sp_CrearCursoAlumno">
+            <Parameter Name="id_curso" Mode="In" Type="Int32" />
+            <Parameter Name="id_alumno" Mode="In" Type="Int32" />
+            <Parameter Name="status_cursoAlumno" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="sp_EditarAlumno">
+            <Parameter Name="id_alumno" Mode="In" Type="Int32" />
+            <Parameter Name="id_semestre" Mode="In" Type="Int32" />
+            <Parameter Name="id_especialidad" Mode="In" Type="Int32" />
+            <Parameter Name="nombre_alumno" Mode="In" Type="String" />
+            <Parameter Name="apellido_alumno" Mode="In" Type="String" />
+            <Parameter Name="direccion_alumno" Mode="In" Type="String" />
+            <Parameter Name="edad_alumno" Mode="In" Type="Int32" />
+            <Parameter Name="sexo_alumno" Mode="In" Type="String" />
+            <Parameter Name="telefono_alumno" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="sp_EditarCurso">
+            <Parameter Name="id_curso" Mode="In" Type="Int32" />
+            <Parameter Name="id_maestro" Mode="In" Type="Int32" />
+            <Parameter Name="id_materia" Mode="In" Type="Int32" />
+            <Parameter Name="id_semestre" Mode="In" Type="Int32" />
+            <Parameter Name="id_especialidad" Mode="In" Type="Int32" />
+            <Parameter Name="status_curso" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="sp_EditarCursoAlumno">
+            <Parameter Name="id_curso_alumno" Mode="In" Type="Int32" />
+            <Parameter Name="id_curso" Mode="In" Type="Int32" />
+            <Parameter Name="id_alumno" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="sp_EditarEspecialidad">
+            <Parameter Name="id_Especialidad" Mode="In" Type="Int32" />
+            <Parameter Name="nombre_Especialidad" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="sp_EditarMaestro">
+            <Parameter Name="id_maestro" Mode="In" Type="Int32" />
+            <Parameter Name="nombre_maestro" Mode="In" Type="String" />
+            <Parameter Name="apellido_maestro" Mode="In" Type="String" />
+            <Parameter Name="direccion_maestro" Mode="In" Type="String" />
+            <Parameter Name="edad_maestro" Mode="In" Type="Int32" />
+            <Parameter Name="sexo_maestro" Mode="In" Type="String" />
+            <Parameter Name="telefono_maestro" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="sp_EditarMateria">
+            <Parameter Name="id_materia" Mode="In" Type="Int32" />
+            <Parameter Name="nombre_materia" Mode="In" Type="String" />
+            <Parameter Name="creditos" Mode="In" Type="Int32" />
+            <Parameter Name="status_materia" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="sp_EditarSemestre">
+            <Parameter Name="id_semestre" Mode="In" Type="Int32" />
+            <Parameter Name="nombre_semestre" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="sp_InsertarAlumno">
+            <Parameter Name="id_semestre" Mode="In" Type="Int32" />
+            <Parameter Name="id_especialidad" Mode="In" Type="Int32" />
+            <Parameter Name="nombre_alumno" Mode="In" Type="String" />
+            <Parameter Name="apellido_alumno" Mode="In" Type="String" />
+            <Parameter Name="direccion_alumno" Mode="In" Type="String" />
+            <Parameter Name="edad_alumno" Mode="In" Type="Int32" />
+            <Parameter Name="sexo_alumno" Mode="In" Type="String" />
+            <Parameter Name="telefono_alumno" Mode="In" Type="String" />
+            <Parameter Name="status_alumno" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="sp_InsertarEspecialidad">
+            <Parameter Name="nombre_Especialidad" Mode="In" Type="String" />
+            <Parameter Name="estado_Especialidad" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="sp_InsertarMaestro">
+            <Parameter Name="nombre_maestro" Mode="In" Type="String" />
+            <Parameter Name="apellido_maestro" Mode="In" Type="String" />
+            <Parameter Name="direccion_maestro" Mode="In" Type="String" />
+            <Parameter Name="edad_maestro" Mode="In" Type="Int32" />
+            <Parameter Name="sexo_maestro" Mode="In" Type="String" />
+            <Parameter Name="telefono_maestro" Mode="In" Type="String" />
+            <Parameter Name="status_maestro" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="sp_InsertarMateria">
+            <Parameter Name="nombre_materia" Mode="In" Type="String" />
+            <Parameter Name="creditos" Mode="In" Type="Int32" />
+            <Parameter Name="status_materia" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="sp_ListarAlumno" ReturnType="Collection(BdEscuelaMvcModel.sp_ListarAlumno_Result)" />
+          <FunctionImport Name="sp_ListarCursosADetalle" ReturnType="Collection(BdEscuelaMvcModel.sp_ListarCursosADetalle_Result)" />
+          <FunctionImport Name="sp_ListarCursosAlumno" ReturnType="Collection(BdEscuelaMvcModel.sp_ListarCursosAlumno_Result)" />
+          <FunctionImport Name="sp_ListarEspecialidades" ReturnType="Collection(BdEscuelaMvcModel.sp_ListarEspecialidades_Result)" />
+          <FunctionImport Name="sp_ListarMaestro" ReturnType="Collection(BdEscuelaMvcModel.sp_ListarMaestro_Result)" />
+          <FunctionImport Name="sp_ListarMateria" ReturnType="Collection(BdEscuelaMvcModel.sp_ListarMateria_Result)" />
+          <FunctionImport Name="sp_ListarSemestres" ReturnType="Collection(BdEscuelaMvcModel.sp_ListarSemestres_Result)" />
+          <FunctionImport Name="sp_Login" ReturnType="Collection(BdEscuelaMvcModel.sp_Login_Result)">
+            <Parameter Name="correo_usuario" Mode="In" Type="String" />
+            <Parameter Name="password_usuario" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="sp_RegistrarSemestre">
+            <Parameter Name="nombre_semestre" Mode="In" Type="String" />
+            <Parameter Name="status_semestre" Mode="In" Type="String" />
+          </FunctionImport>
+        </EntityContainer>
+        <ComplexType Name="sp_ListarAlumno_Result">
+          <Property Type="Int32" Name="id_alumno" Nullable="false" />
+          <Property Type="Int32" Name="id_semestre" Nullable="false" />
+          <Property Type="Int32" Name="id_especialidad" Nullable="false" />
+          <Property Type="String" Name="nombre_alumno" Nullable="false" MaxLength="50" />
+          <Property Type="String" Name="apellido_alumno" Nullable="false" MaxLength="50" />
+          <Property Type="String" Name="direccion_alumno" Nullable="false" MaxLength="100" />
+          <Property Type="Int32" Name="edad_alumno" Nullable="false" />
+          <Property Type="String" Name="sexo_alumno" Nullable="false" MaxLength="10" />
+          <Property Type="String" Name="telefono_alumno" Nullable="false" MaxLength="10" />
+          <Property Type="DateTime" Name="fecha_registro_alumno" Nullable="false" Precision="23" />
+          <Property Type="String" Name="status_alumno" Nullable="false" MaxLength="10" />
+        </ComplexType>
+        <ComplexType Name="sp_ListarCursosADetalle_Result">
+          <Property Type="Int32" Name="id_curso" Nullable="false" />
+          <Property Type="Int32" Name="id_maestro" Nullable="false" />
+          <Property Type="Int32" Name="id_materia" Nullable="false" />
+          <Property Type="Int32" Name="id_semestre" Nullable="false" />
+          <Property Type="Int32" Name="id_especialidad" Nullable="false" />
+          <Property Type="String" Name="status_curso" Nullable="false" MaxLength="10" />
+        </ComplexType>
+        <ComplexType Name="sp_ListarCursosAlumno_Result">
+          <Property Type="Int32" Name="id_cursoalumno" Nullable="false" />
+          <Property Type="Int32" Name="id_curso" Nullable="false" />
+          <Property Type="Int32" Name="id_alumno" Nullable="false" />
+          <Property Type="String" Name="status_cursoAlumno" Nullable="false" MaxLength="10" />
+        </ComplexType>
+        <ComplexType Name="sp_ListarEspecialidades_Result">
+          <Property Type="Int32" Name="id_especialidad" Nullable="false" />
+          <Property Type="String" Name="nombre_especialidad" Nullable="false" MaxLength="50" />
+          <Property Type="String" Name="status_especialidad" Nullable="false" MaxLength="10" />
+        </ComplexType>
+        <ComplexType Name="sp_ListarMaestro_Result">
+          <Property Type="Int32" Name="id_maestro" Nullable="false" />
+          <Property Type="String" Name="nombre_maestro" Nullable="false" MaxLength="50" />
+          <Property Type="String" Name="apellido_maestro" Nullable="false" MaxLength="50" />
+          <Property Type="String" Name="direccion_maestro" Nullable="false" MaxLength="100" />
+          <Property Type="Int32" Name="edad_maestro" Nullable="false" />
+          <Property Type="String" Name="sexo_maestro" Nullable="false" MaxLength="10" />
+          <Property Type="String" Name="telefono_maestro" Nullable="false" MaxLength="10" />
+          <Property Type="DateTime" Name="fecha_registro_maestro" Nullable="false" Precision="23" />
+          <Property Type="String" Name="status_maestro" Nullable="false" MaxLength="20" />
+        </ComplexType>
+        <ComplexType Name="sp_ListarMateria_Result">
+          <Property Type="Int32" Name="id_materia" Nullable="false" />
+          <Property Type="String" Name="nombre_materia" Nullable="false" MaxLength="30" />
+          <Property Type="Int32" Name="creditos" Nullable="false" />
+          <Property Type="String" Name="status_materia" Nullable="false" MaxLength="10" />
+        </ComplexType>
+        <ComplexType Name="sp_ListarSemestres_Result">
+          <Property Type="Int32" Name="id_semestre" Nullable="false" />
+          <Property Type="String" Name="nombre_semestre" Nullable="false" MaxLength="30" />
+          <Property Type="String" Name="status_semestre" Nullable="false" MaxLength="10" />
+        </ComplexType>
+        <ComplexType Name="sp_Login_Result">
+          <Property Type="Int32" Name="id" Nullable="false" />
+          <Property Type="String" Name="correo_usuario" Nullable="false" MaxLength="50" />
+          <Property Type="String" Name="password_usuario" Nullable="false" MaxLength="20" />
+        </ComplexType>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="BdEscuelaMvcModelStoreContainer" CdmEntityContainer="EscuelaBd">
+          <EntitySetMapping Name="Alumno">
+            <EntityTypeMapping TypeName="BdEscuelaMvcModel.Alumno">
+              <MappingFragment StoreEntitySet="Alumno">
+                <ScalarProperty Name="id_alumno" ColumnName="id_alumno" />
+                <ScalarProperty Name="id_semestre" ColumnName="id_semestre" />
+                <ScalarProperty Name="id_especialidad" ColumnName="id_especialidad" />
+                <ScalarProperty Name="nombre_alumno" ColumnName="nombre_alumno" />
+                <ScalarProperty Name="apellido_alumno" ColumnName="apellido_alumno" />
+                <ScalarProperty Name="direccion_alumno" ColumnName="direccion_alumno" />
+                <ScalarProperty Name="edad_alumno" ColumnName="edad_alumno" />
+                <ScalarProperty Name="sexo_alumno" ColumnName="sexo_alumno" />
+                <ScalarProperty Name="telefono_alumno" ColumnName="telefono_alumno" />
+                <ScalarProperty Name="fecha_registro_alumno" ColumnName="fecha_registro_alumno" />
+                <ScalarProperty Name="status_alumno" ColumnName="status_alumno" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Curso">
+            <EntityTypeMapping TypeName="BdEscuelaMvcModel.Curso">
+              <MappingFragment StoreEntitySet="Curso">
+                <ScalarProperty Name="id_curso" ColumnName="id_curso" />
+                <ScalarProperty Name="id_maestro" ColumnName="id_maestro" />
+                <ScalarProperty Name="id_materia" ColumnName="id_materia" />
+                <ScalarProperty Name="id_semestre" ColumnName="id_semestre" />
+                <ScalarProperty Name="id_especialidad" ColumnName="id_especialidad" />
+                <ScalarProperty Name="status_curso" ColumnName="status_curso" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="CursoAlumno">
+            <EntityTypeMapping TypeName="BdEscuelaMvcModel.CursoAlumno">
+              <MappingFragment StoreEntitySet="CursoAlumno">
+                <ScalarProperty Name="id_cursoalumno" ColumnName="id_cursoalumno" />
+                <ScalarProperty Name="id_curso" ColumnName="id_curso" />
+                <ScalarProperty Name="id_alumno" ColumnName="id_alumno" />
+                <ScalarProperty Name="status_cursoAlumno" ColumnName="status_cursoAlumno" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Especialidad">
+            <EntityTypeMapping TypeName="BdEscuelaMvcModel.Especialidad">
+              <MappingFragment StoreEntitySet="Especialidad">
+                <ScalarProperty Name="id_especialidad" ColumnName="id_especialidad" />
+                <ScalarProperty Name="nombre_especialidad" ColumnName="nombre_especialidad" />
+                <ScalarProperty Name="status_especialidad" ColumnName="status_especialidad" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Maestro">
+            <EntityTypeMapping TypeName="BdEscuelaMvcModel.Maestro">
+              <MappingFragment StoreEntitySet="Maestro">
+                <ScalarProperty Name="id_maestro" ColumnName="id_maestro" />
+                <ScalarProperty Name="nombre_maestro" ColumnName="nombre_maestro" />
+                <ScalarProperty Name="apellido_maestro" ColumnName="apellido_maestro" />
+                <ScalarProperty Name="direccion_maestro" ColumnName="direccion_maestro" />
+                <ScalarProperty Name="edad_maestro" ColumnName="edad_maestro" />
+                <ScalarProperty Name="sexo_maestro" ColumnName="sexo_maestro" />
+                <ScalarProperty Name="telefono_maestro" ColumnName="telefono_maestro" />
+                <ScalarProperty Name="fecha_registro_maestro" ColumnName="fecha_registro_maestro" />
+                <ScalarProperty Name="status_maestro" ColumnName="status_maestro" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Materia">
+            <EntityTypeMapping TypeName="BdEscuelaMvcModel.Materia">
+              <MappingFragment StoreEntitySet="Materia">
+                <ScalarProperty Name="id_materia" ColumnName="id_materia" />
+                <ScalarProperty Name="nombre_materia" ColumnName="nombre_materia" />
+                <ScalarProperty Name="creditos" ColumnName="creditos" />
+                <ScalarProperty Name="status_materia" ColumnName="status_materia" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Semestre">
+            <EntityTypeMapping TypeName="BdEscuelaMvcModel.Semestre">
+              <MappingFragment StoreEntitySet="Semestre">
+                <ScalarProperty Name="id_semestre" ColumnName="id_semestre" />
+                <ScalarProperty Name="nombre_semestre" ColumnName="nombre_semestre" />
+                <ScalarProperty Name="status_semestre" ColumnName="status_semestre" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Usuario">
+            <EntityTypeMapping TypeName="BdEscuelaMvcModel.Usuario">
+              <MappingFragment StoreEntitySet="Usuario">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="correo_usuario" ColumnName="correo_usuario" />
+                <ScalarProperty Name="password_usuario" ColumnName="password_usuario" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="sp_AltaAlumno" FunctionName="BdEscuelaMvcModel.Store.sp_AltaAlumno" />
+          <FunctionImportMapping FunctionImportName="sp_AltaCurso" FunctionName="BdEscuelaMvcModel.Store.sp_AltaCurso" />
+          <FunctionImportMapping FunctionImportName="sp_AltaCursoAlumno" FunctionName="BdEscuelaMvcModel.Store.sp_AltaCursoAlumno" />
+          <FunctionImportMapping FunctionImportName="sp_AltaEspecialidad" FunctionName="BdEscuelaMvcModel.Store.sp_AltaEspecialidad" />
+          <FunctionImportMapping FunctionImportName="sp_AltaMaestro" FunctionName="BdEscuelaMvcModel.Store.sp_AltaMaestro" />
+          <FunctionImportMapping FunctionImportName="sp_AltaMateria" FunctionName="BdEscuelaMvcModel.Store.sp_AltaMateria" />
+          <FunctionImportMapping FunctionImportName="sp_AltaSemestre" FunctionName="BdEscuelaMvcModel.Store.sp_AltaSemestre" />
+          <FunctionImportMapping FunctionImportName="sp_BajaAlumno" FunctionName="BdEscuelaMvcModel.Store.sp_BajaAlumno" />
+          <FunctionImportMapping FunctionImportName="sp_BajaCurso" FunctionName="BdEscuelaMvcModel.Store.sp_BajaCurso" />
+          <FunctionImportMapping FunctionImportName="sp_BajaCursoAlumno" FunctionName="BdEscuelaMvcModel.Store.sp_BajaCursoAlumno" />
+          <FunctionImportMapping FunctionImportName="sp_BajaEspecialidad" FunctionName="BdEscuelaMvcModel.Store.sp_BajaEspecialidad" />
+          <FunctionImportMapping FunctionImportName="sp_BajaMaestro" FunctionName="BdEscuelaMvcModel.Store.sp_BajaMaestro" />
+          <FunctionImportMapping FunctionImportName="sp_BajaMateria" FunctionName="BdEscuelaMvcModel.Store.sp_BajaMateria" />
+          <FunctionImportMapping FunctionImportName="sp_BajaSemestre" FunctionName="BdEscuelaMvcModel.Store.sp_BajaSemestre" />
+          <FunctionImportMapping FunctionImportName="sp_CrearCurso" FunctionName="BdEscuelaMvcModel.Store.sp_CrearCurso" />
+          <FunctionImportMapping FunctionImportName="sp_CrearCursoAlumno" FunctionName="BdEscuelaMvcModel.Store.sp_CrearCursoAlumno" />
+          <FunctionImportMapping FunctionImportName="sp_EditarAlumno" FunctionName="BdEscuelaMvcModel.Store.sp_EditarAlumno" />
+          <FunctionImportMapping FunctionImportName="sp_EditarCurso" FunctionName="BdEscuelaMvcModel.Store.sp_EditarCurso" />
+          <FunctionImportMapping FunctionImportName="sp_EditarCursoAlumno" FunctionName="BdEscuelaMvcModel.Store.sp_EditarCursoAlumno" />
+          <FunctionImportMapping FunctionImportName="sp_EditarEspecialidad" FunctionName="BdEscuelaMvcModel.Store.sp_EditarEspecialidad" />
+          <FunctionImportMapping FunctionImportName="sp_EditarMaestro" FunctionName="BdEscuelaMvcModel.Store.sp_EditarMaestro" />
+          <FunctionImportMapping FunctionImportName="sp_EditarMateria" FunctionName="BdEscuelaMvcModel.Store.sp_EditarMateria" />
+          <FunctionImportMapping FunctionImportName="sp_EditarSemestre" FunctionName="BdEscuelaMvcModel.Store.sp_EditarSemestre" />
+          <FunctionImportMapping FunctionImportName="sp_InsertarAlumno" FunctionName="BdEscuelaMvcModel.Store.sp_InsertarAlumno" />
+          <FunctionImportMapping FunctionImportName="sp_InsertarEspecialidad" FunctionName="BdEscuelaMvcModel.Store.sp_InsertarEspecialidad" />
+          <FunctionImportMapping FunctionImportName="sp_InsertarMaestro" FunctionName="BdEscuelaMvcModel.Store.sp_InsertarMaestro" />
+          <FunctionImportMapping FunctionImportName="sp_InsertarMateria" FunctionName="BdEscuelaMvcModel.Store.sp_InsertarMateria" />
+          <FunctionImportMapping FunctionImportName="sp_ListarAlumno" FunctionName="BdEscuelaMvcModel.Store.sp_ListarAlumno">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="BdEscuelaMvcModel.sp_ListarAlumno_Result">
+                <ScalarProperty Name="id_alumno" ColumnName="id_alumno" />
+                <ScalarProperty Name="id_semestre" ColumnName="id_semestre" />
+                <ScalarProperty Name="id_especialidad" ColumnName="id_especialidad" />
+                <ScalarProperty Name="nombre_alumno" ColumnName="nombre_alumno" />
+                <ScalarProperty Name="apellido_alumno" ColumnName="apellido_alumno" />
+                <ScalarProperty Name="direccion_alumno" ColumnName="direccion_alumno" />
+                <ScalarProperty Name="edad_alumno" ColumnName="edad_alumno" />
+                <ScalarProperty Name="sexo_alumno" ColumnName="sexo_alumno" />
+                <ScalarProperty Name="telefono_alumno" ColumnName="telefono_alumno" />
+                <ScalarProperty Name="fecha_registro_alumno" ColumnName="fecha_registro_alumno" />
+                <ScalarProperty Name="status_alumno" ColumnName="status_alumno" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="sp_ListarCursosADetalle" FunctionName="BdEscuelaMvcModel.Store.sp_ListarCursosADetalle">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="BdEscuelaMvcModel.sp_ListarCursosADetalle_Result">
+                <ScalarProperty Name="id_curso" ColumnName="id_curso" />
+                <ScalarProperty Name="id_maestro" ColumnName="id_maestro" />
+                <ScalarProperty Name="id_materia" ColumnName="id_materia" />
+                <ScalarProperty Name="id_semestre" ColumnName="id_semestre" />
+                <ScalarProperty Name="id_especialidad" ColumnName="id_especialidad" />
+                <ScalarProperty Name="status_curso" ColumnName="status_curso" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="sp_ListarCursosAlumno" FunctionName="BdEscuelaMvcModel.Store.sp_ListarCursosAlumno">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="BdEscuelaMvcModel.sp_ListarCursosAlumno_Result">
+                <ScalarProperty Name="id_cursoalumno" ColumnName="id_cursoalumno" />
+                <ScalarProperty Name="id_curso" ColumnName="id_curso" />
+                <ScalarProperty Name="id_alumno" ColumnName="id_alumno" />
+                <ScalarProperty Name="status_cursoAlumno" ColumnName="status_cursoAlumno" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="sp_ListarEspecialidades" FunctionName="BdEscuelaMvcModel.Store.sp_ListarEspecialidades">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="BdEscuelaMvcModel.sp_ListarEspecialidades_Result">
+                <ScalarProperty Name="id_especialidad" ColumnName="id_especialidad" />
+                <ScalarProperty Name="nombre_especialidad" ColumnName="nombre_especialidad" />
+                <ScalarProperty Name="status_especialidad" ColumnName="status_especialidad" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="sp_ListarMaestro" FunctionName="BdEscuelaMvcModel.Store.sp_ListarMaestro">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="BdEscuelaMvcModel.sp_ListarMaestro_Result">
+                <ScalarProperty Name="id_maestro" ColumnName="id_maestro" />
+                <ScalarProperty Name="nombre_maestro" ColumnName="nombre_maestro" />
+                <ScalarProperty Name="apellido_maestro" ColumnName="apellido_maestro" />
+                <ScalarProperty Name="direccion_maestro" ColumnName="direccion_maestro" />
+                <ScalarProperty Name="edad_maestro" ColumnName="edad_maestro" />
+                <ScalarProperty Name="sexo_maestro" ColumnName="sexo_maestro" />
+                <ScalarProperty Name="telefono_maestro" ColumnName="telefono_maestro" />
+                <ScalarProperty Name="fecha_registro_maestro" ColumnName="fecha_registro_maestro" />
+                <ScalarProperty Name="status_maestro" ColumnName="status_maestro" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="sp_ListarMateria" FunctionName="BdEscuelaMvcModel.Store.sp_ListarMateria">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="BdEscuelaMvcModel.sp_ListarMateria_Result">
+                <ScalarProperty Name="id_materia" ColumnName="id_materia" />
+                <ScalarProperty Name="nombre_materia" ColumnName="nombre_materia" />
+                <ScalarProperty Name="creditos" ColumnName="creditos" />
+                <ScalarProperty Name="status_materia" ColumnName="status_materia" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="sp_ListarSemestres" FunctionName="BdEscuelaMvcModel.Store.sp_ListarSemestres">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="BdEscuelaMvcModel.sp_ListarSemestres_Result">
+                <ScalarProperty Name="id_semestre" ColumnName="id_semestre" />
+                <ScalarProperty Name="nombre_semestre" ColumnName="nombre_semestre" />
+                <ScalarProperty Name="status_semestre" ColumnName="status_semestre" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="sp_Login" FunctionName="BdEscuelaMvcModel.Store.sp_Login">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="BdEscuelaMvcModel.sp_Login_Result">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="correo_usuario" ColumnName="correo_usuario" />
+                <ScalarProperty Name="password_usuario" ColumnName="password_usuario" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="sp_RegistrarSemestre" FunctionName="BdEscuelaMvcModel.Store.sp_RegistrarSemestre" />
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="Ninguno" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
